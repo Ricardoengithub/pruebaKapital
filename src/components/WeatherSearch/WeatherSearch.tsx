@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Autocomplete, TextField, CircularProgress, Box } from '@mui/material';
 import { useCitySearch } from '../../hooks/useCitySearch';
 import type { City } from '../../types/weather';
@@ -14,11 +14,11 @@ const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
   const { data: cities = [], isLoading } = useCitySearch(inputValue);
 
   const selectedOption =
-  cities.find(
-    (c) =>
-      `${c.name}${c.state ? ', ' + c.state : ''}, ${c.country}`.toLowerCase() ===
-      inputValue.toLowerCase()
-  ) || selectedCity || null;
+    cities.find(
+      (c) =>
+        `${c.name}${c.state ? ', ' + c.state : ''}, ${c.country}`.toLowerCase() ===
+        inputValue.toLowerCase()
+    ) || selectedCity || null;
 
   const handleCityChange = (_: any, newValue: City | null) => {
     setSelectedCity(newValue);
@@ -31,7 +31,15 @@ const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
   };
 
   return (
-    <Box sx={{ width: 400, margin: '40px auto' }}>
+    <Box
+      sx={{
+        width: '100%',
+        maxWidth: 500,
+        px: 2,
+        my: 4,
+        mx: 'auto',
+      }}
+    >
       <Autocomplete
         options={cities}
         getOptionLabel={(option) =>
@@ -43,7 +51,6 @@ const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
         inputValue={inputValue}
         onInputChange={(_, newInputValue) => {
           setInputValue(newInputValue);
-          // No limpies de inmediato el selectedCity — espera a que el usuario lo confirme con onChange
         }}
         disableClearable={false}
         renderInput={(params) => (

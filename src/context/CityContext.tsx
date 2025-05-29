@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
-import type { ReactNode } from 'react'; // ✅ Importación solo de tipo
-import type { City } from '../types/weather'; // ✅ Importación solo de tipo
+import type { ReactNode } from 'react';
+import type { City } from '../types/weather';
 
 type CityContextType = {
   selectedCity: City | null;

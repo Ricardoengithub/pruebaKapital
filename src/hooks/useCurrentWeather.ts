@@ -14,5 +14,5 @@ export const useCurrentWeather = (lat?: number, lon?: number) =>
       return res.json();
     },
     enabled: !!lat && !!lon,
-    retry: 1, // reintenta una vez
+    retry: 1,
   });

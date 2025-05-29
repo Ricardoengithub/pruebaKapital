@@ -51,15 +51,13 @@ const WeatherMap: React.FC<Props> = ({ setInputValue }) => {
     return null;
   };
 
-  // Hook para centrar el mapa cuando cambia selectedCity
   const MapController = () => {
     const map = useMap();
 
     useEffect(() => {
       if (selectedCity?.lat && selectedCity?.lon) {
         const newPosition: [number, number] = [selectedCity.lat, selectedCity.lon];
-        map.setView(newPosition, 10); // puedes cambiar el zoom si quieres
-        // setPosition(newPosition);
+        map.setView(newPosition, 10);
         setPopupText(`${selectedCity.name}${selectedCity.state ? ', ' + selectedCity.state : ''}, ${selectedCity.country}`);
       }
     }, [selectedCity, map]);

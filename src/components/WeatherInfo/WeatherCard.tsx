@@ -1,6 +1,9 @@
 import {
   Card,
   CardContent,
+  Typography,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import WeatherHeader from './WeatherHeader';
 import TemperatureInfo from './TemperatureInfo';
@@ -18,6 +21,9 @@ const WeatherCard: React.FC<Props> = ({ weather }) => {
   const phase = getDayPhase(weather.dt, weather.sys.sunrise, weather.sys.sunset);
   const background = gradients[phase];
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Card
       sx={{
@@ -27,14 +33,22 @@ const WeatherCard: React.FC<Props> = ({ weather }) => {
         borderRadius: 4,
         boxShadow: 6,
         overflow: 'hidden',
+        width: '100%',
+        px: isMobile ? 1 : 3,
       }}
     >
-      <CardContent>
-        <WeatherHeader weather={weather} />
-        <TemperatureInfo weather={weather} />
-        <AtmosphericInfo weather={weather} />
-        <WindInfo weather={weather} />
-        <SunInfo weather={weather} />
+      <CardContent sx={{ px: isMobile ? 1 : 3, py: isMobile ? 2 : 4 }}>
+        {!weather.main ? (
+          <Typography>No hay datos disponibles en este momento.</Typography>
+        ) : (
+          <>
+            <WeatherHeader weather={weather} />
+            <TemperatureInfo weather={weather} />
+            <AtmosphericInfo weather={weather} />
+            <WindInfo weather={weather} />
+            <SunInfo weather={weather} />
+          </>
+        )}
       </CardContent>
     </Card>
   );

@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: 20, maxWidth: 800, margin: '0 auto' }}>
+    <div style={{ padding: 20, maxWidth: 800, margin: '20px auto' }}>
       {/* 🔌 Conexión perdida */}
       {isOffline && (
         <div style={{ background: '#fff3cd', padding: 10, borderRadius: 4, marginBottom: 16 }}>
