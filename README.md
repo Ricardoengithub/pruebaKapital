@@ -2,7 +2,7 @@
 
 Se clona el proyecto y en la raíz ejecutar lo siguiente
 
-npm install
+npm install  
 npm run dev
 
 
