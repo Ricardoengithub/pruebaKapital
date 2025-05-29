@@ -59,7 +59,7 @@ const WeatherMap: React.FC<Props> = ({ setInputValue }) => {
       if (selectedCity?.lat && selectedCity?.lon) {
         const newPosition: [number, number] = [selectedCity.lat, selectedCity.lon];
         map.setView(newPosition, 10); // puedes cambiar el zoom si quieres
-        setPosition(newPosition);
+        // setPosition(newPosition);
         setPopupText(`${selectedCity.name}${selectedCity.state ? ', ' + selectedCity.state : ''}, ${selectedCity.country}`);
       }
     }, [selectedCity, map]);
