@@ -69,7 +69,7 @@ const WeatherMap: React.FC<Props> = ({ setInputValue }) => {
         const fullName = `${selectedCity.name}${selectedCity.state ? ', ' + selectedCity.state : ''}, ${selectedCity.country}`;
         setPopupText(fullName);
       }
-    }, [selectedCity, map]);
+    }, [map]);
 
     return null;
   };

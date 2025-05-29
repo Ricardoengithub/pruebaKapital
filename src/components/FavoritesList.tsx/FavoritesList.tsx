@@ -3,8 +3,7 @@ import { Box, Typography, Stack, IconButton } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { useCity } from '../../hooks/useCity';
 import { getFavorites, toggleFavorite } from '../../util/favorites';
-import type { City } from '../../types/weather'; // ✅ Importa el tipo correcto
-
+import type { City } from '../../types/weather';
 interface Props {
   setInputValue: (value: string) => void;
 }
