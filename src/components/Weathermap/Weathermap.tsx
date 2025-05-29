@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMap,
+  useMapEvents,
+} from 'react-leaflet';
 import { useCity } from '../../hooks/useCity';
 import { API_KEY } from '../../config/api';
+import type { LatLngExpression, LeafletMouseEvent } from 'leaflet';
 
 type Props = {
   setInputValue: (value: string) => void;
@@ -9,13 +17,13 @@ type Props = {
 
 const WeatherMap: React.FC<Props> = ({ setInputValue }) => {
   const { selectedCity, setSelectedCity } = useCity();
-  const [position, setPosition] = useState<[number, number] | null>(null);
+  const [position, setPosition] = useState<LatLngExpression | null>(null);
   const [popupText, setPopupText] = useState<string>('');
 
-  // Hook que escucha clics en el mapa
+  // Maneja el clic en el mapa
   const ClickHandler = () => {
     useMapEvents({
-      click: async (e) => {
+      click: async (e: LeafletMouseEvent) => {
         const lat = e.latlng.lat;
         const lon = e.latlng.lng;
         setPosition([lat, lon]);
@@ -56,25 +64,30 @@ const WeatherMap: React.FC<Props> = ({ setInputValue }) => {
 
     useEffect(() => {
       if (selectedCity?.lat && selectedCity?.lon) {
-        const newPosition: [number, number] = [selectedCity.lat, selectedCity.lon];
+        const newPosition: LatLngExpression = [selectedCity.lat, selectedCity.lon];
         map.setView(newPosition, 10);
-        setPopupText(`${selectedCity.name}${selectedCity.state ? ', ' + selectedCity.state : ''}, ${selectedCity.country}`);
+        const fullName = `${selectedCity.name}${selectedCity.state ? ', ' + selectedCity.state : ''}, ${selectedCity.country}`;
+        setPopupText(fullName);
       }
-    }, [map]);
+    }, [selectedCity, map]);
 
     return null;
   };
 
   return (
     <div style={{ height: '400px', marginTop: 20 }}>
-      <MapContainer center={[19.4326, -99.1332]} zoom={5} style={{ height: '100%' }}>
+      <MapContainer
+        center={[19.4326, -99.1332]}
+        zoom={5}
+        style={{ height: '100%', width: '100%' }}
+      >
         <TileLayer
           attribution='&copy; OpenStreetMap contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
         <ClickHandler />
         <MapController />
-        {position && selectedCity && (
+        {position && (
           <Marker position={position}>
             <Popup>{popupText || 'Ciudad seleccionada'}</Popup>
           </Marker>
