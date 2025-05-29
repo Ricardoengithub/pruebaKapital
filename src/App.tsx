@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import WeatherCard from './components/WeatherInfo/WeatherCard';
 import WeatherSearch from './components/WeatherSearch/WeatherSearch';
 import WeatherChart from './components/WeatherChart/WeatherChart';
@@ -5,9 +6,12 @@ import WeatherChart from './components/WeatherChart/WeatherChart';
 import { useCity } from './context/CityContext';
 import { useCurrentWeather } from './hooks/useCurrentWeather';
 import { useHistoricalWeather } from './hooks/useHistoricalWeather';
+import FloatingFavoriteButton from './components/FloatingFavoriteButton/FloatingfavoriteButton';
+import FavoritesList from './components/FavoritesList.tsx/FavoritesList';
 
 function App() {
   const { selectedCity } = useCity();
+  const [inputValue, setInputValue] = useState('');
 
   const { data: weather, isLoading, isError } = useCurrentWeather(
     selectedCity?.lat,
@@ -21,7 +25,8 @@ function App() {
 
   return (
     <div style={{ padding: 20, maxWidth: 800, margin: '0 auto' }}>
-      <WeatherSearch />
+      <WeatherSearch inputValue={inputValue} setInputValue={setInputValue} />
+      {!selectedCity && <FavoritesList setInputValue={setInputValue} />}
 
       {isLoading && <p>Cargando clima...</p>}
       {isError && <p>❌ Error al obtener el clima</p>}
@@ -29,8 +34,10 @@ function App() {
 
       {loadingHistory && <p>Cargando datos históricos...</p>}
       {forecastData && <WeatherChart data={forecastData} />}
+      <FloatingFavoriteButton />
     </div>
   );
 }
 
 export default App;
+  
