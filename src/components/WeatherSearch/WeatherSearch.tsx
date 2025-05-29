@@ -10,23 +10,25 @@ type Props = {
 };
 
 const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
-  const { setSelectedCity } = useCity();
+  const { selectedCity, setSelectedCity } = useCity();
   const { data: cities = [], isLoading } = useCitySearch(inputValue);
+
+  // Encuentra la ciudad que coincida con inputValue para asignarla como value del Autocomplete
+  const selectedOption = cities.find(
+    (c) =>
+      `${c.name}${c.state ? ', ' + c.state : ''}, ${c.country}`.toLowerCase() ===
+      inputValue.toLowerCase()
+  ) || null;
 
   const handleCityChange = (_: any, newValue: City | null) => {
     setSelectedCity(newValue);
-  };
-
-  useEffect(() => {
-    const match = cities.find(
-      (c) =>
-        `${c.name}${c.state ? ', ' + c.state : ''}, ${c.country}`.toLowerCase() ===
-        inputValue.toLowerCase()
-    );
-    if (match) {
-      setSelectedCity(match);
+    if (newValue) {
+      const newText = `${newValue.name}${newValue.state ? ', ' + newValue.state : ''}, ${newValue.country}`;
+      setInputValue(newText);
+    } else {
+      setInputValue('');
     }
-  }, [inputValue, cities, setSelectedCity]);
+  };
 
   return (
     <Box sx={{ width: 400, margin: '40px auto' }}>
@@ -36,9 +38,16 @@ const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
           `${option.name}${option.state ? ', ' + option.state : ''}, ${option.country}`
         }
         loading={isLoading}
+        value={selectedOption}
         onChange={handleCityChange}
         inputValue={inputValue}
-        onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
+        onInputChange={(_, newInputValue) => {
+          setInputValue(newInputValue);
+          if (newInputValue === '') {
+            setSelectedCity(null);
+          }
+        }}
+        disableClearable={false}
         renderInput={(params) => (
           <TextField
             {...params}

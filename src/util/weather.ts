@@ -1,7 +1,7 @@
-type DayPhase = 'morning' | 'day' | 'evening' | 'night';
+export type DayPhase = 'morning' | 'day' | 'evening' | 'night';
 
 export function getDayPhase(dt: number, sunrise: number, sunset: number): DayPhase {
-  const oneHour = 60 * 60; // en segundos
+  const oneHour = 60 * 60;
 
   if (dt >= sunrise && dt < sunrise + oneHour) return 'morning';
   if (dt >= sunrise + oneHour && dt < sunset - oneHour) return 'day';
@@ -10,8 +10,8 @@ export function getDayPhase(dt: number, sunrise: number, sunset: number): DayPha
 }
 
 export const gradients: Record<DayPhase, string> = {
-  morning: 'linear-gradient(135deg, #FFDEE9, #B5FFFC, #FEE140, #FA709A)', // suave, rosado y dorado
-  day: 'linear-gradient(135deg, #56CCF2, #2F80ED, #00c6ff, #0072ff)', // azul brillante, cielo despejado
-  evening: 'linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee)', // rosa-lavanda suave
-  night: 'linear-gradient(135deg, #141E30, #243B55, #1D2671, #C33764)', // azul oscuro a púrpura profundo
+  morning: 'linear-gradient(135deg, #4b6cb7, #182848)', // azul suave a oscuro
+  day: 'linear-gradient(135deg, #2980b9, #2c3e50)',     // azul cielo apagado
+  evening: 'linear-gradient(135deg, #614385, #516395)', // púrpura a azul grisáceo
+  night: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)', // noche profunda
 };

@@ -4,7 +4,6 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useCity } from '../../context/CityContext';
 import { isFavorite, toggleFavorite } from '../../util/favorites';
-import type { City } from '../../types/weather';
 
 const FloatingFavoriteButton: React.FC = () => {
   const { selectedCity } = useCity();

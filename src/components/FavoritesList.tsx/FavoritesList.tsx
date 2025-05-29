@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, Button, Stack, IconButton } from '@mui/material';
+import { Box, Typography, Stack, IconButton } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import { useCity } from '../../context/CityContext';
 import { getFavorites, toggleFavorite } from '../../util/favorites';
@@ -9,14 +9,19 @@ interface Props {
 }
 
 const FavoritesList: React.FC<Props> = ({ setInputValue }) => {
-  const { selectedCity } = useCity();
+  const { selectedCity, setSelectedCity } = useCity();
   const [favorites, setFavorites] = useState(getFavorites());
 
   if (selectedCity) return null;
 
   const handleToggleFavorite = (cityName: string, country: string) => {
-    toggleFavorite({ name: cityName, country } as any); // Asumimos tipo mínimo para eliminación
+    toggleFavorite({ name: cityName, country } as any);
     setFavorites(getFavorites());
+  };
+
+  const handleSelectCity = (fav: any) => {
+    setSelectedCity(fav);
+    setInputValue(`${fav.name}${fav.state ? ', ' + fav.state : ''}, ${fav.country}`);
   };
 
   return (
@@ -34,17 +39,19 @@ const FavoritesList: React.FC<Props> = ({ setInputValue }) => {
               display="flex"
               alignItems="center"
               justifyContent="space-between"
-              sx={{ border: '1px solid #ccc', borderRadius: 2, p: 1 }}
+              sx={{ border: '1px solid #ccc', borderRadius: 2, p: 1, cursor: 'pointer' }}
+              onClick={() => handleSelectCity(fav)}
             >
-              <Button
-                variant="text"
-                onClick={() =>
-                  setInputValue(`${fav.name}${fav.state ? ', ' + fav.state : ''}, ${fav.country}`)
-                }
-              >
+              <Typography>
                 {fav.name}{fav.state ? ', ' + fav.state : ''}, {fav.country}
-              </Button>
-              <IconButton onClick={() => handleToggleFavorite(fav.name, fav.country)} color="warning">
+              </Typography>
+              <IconButton
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleToggleFavorite(fav.name, fav.country);
+                }}
+                color="warning"
+              >
                 <StarIcon />
               </IconButton>
             </Box>
