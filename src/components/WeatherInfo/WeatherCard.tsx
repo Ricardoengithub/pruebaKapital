@@ -1,8 +1,6 @@
-import React from 'react';
 import {
   Card,
   CardContent,
-  useTheme,
 } from '@mui/material';
 import WeatherHeader from './WeatherHeader';
 import TemperatureInfo from './TemperatureInfo';
@@ -12,15 +10,11 @@ import AtmosphericInfo from './AtmosphericInfo';
 import type { CurrentWeather } from '../../types/weather';
 import { getDayPhase, gradients } from '../../util/weather';
 
-type DayPhase = 'morning' | 'day' | 'evening' | 'night';
-
 type Props = {
   weather: CurrentWeather;
 };
 
 const WeatherCard: React.FC<Props> = ({ weather }) => {
-  const theme = useTheme();
-
   const phase = getDayPhase(weather.dt, weather.sys.sunrise, weather.sys.sunset);
   const background = gradients[phase];
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Autocomplete, TextField, CircularProgress, Box } from '@mui/material';
-import { useCitySearch } from '../hooks/useCitySearch';
-import type { City } from '../types/weather';
-import { useCity } from '../context/CityContext';
+import { useCitySearch } from '../../hooks/useCitySearch';
+import type { City } from '../../types/weather';
+import { useCity } from '../../context/CityContext';
 
 const WeatherSearch: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
