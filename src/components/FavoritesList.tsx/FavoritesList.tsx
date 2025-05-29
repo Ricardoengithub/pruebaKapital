@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Typography, Stack, IconButton } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-import { useCity } from '../../context/CityContext';
+import { useCity } from '../../hooks/useCity';
 import { getFavorites, toggleFavorite } from '../../util/favorites';
+import type { City } from '../../types/weather'; // ✅ Importa el tipo correcto
 
 interface Props {
   setInputValue: (value: string) => void;
@@ -10,16 +11,16 @@ interface Props {
 
 const FavoritesList: React.FC<Props> = ({ setInputValue }) => {
   const { selectedCity, setSelectedCity } = useCity();
-  const [favorites, setFavorites] = useState(getFavorites());
+  const [favorites, setFavorites] = useState<City[]>(getFavorites());
 
   if (selectedCity) return null;
 
   const handleToggleFavorite = (cityName: string, country: string) => {
-    toggleFavorite({ name: cityName, country } as any);
+    toggleFavorite({ name: cityName, country } as City); // Forzamos sólo si sabemos que cumple
     setFavorites(getFavorites());
   };
 
-  const handleSelectCity = (fav: any) => {
+  const handleSelectCity = (fav: City) => {
     setSelectedCity(fav);
     setInputValue(`${fav.name}${fav.state ? ', ' + fav.state : ''}, ${fav.country}`);
   };

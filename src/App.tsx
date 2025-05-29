@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import WeatherCard from './components/WeatherInfo/WeatherCard';
 import WeatherSearch from './components/WeatherSearch/WeatherSearch';
 import WeatherChart from './components/WeatherChart/WeatherChart';
-
-import { useCity } from './context/CityContext';
+import { useCity } from './hooks/useCity';
 import { useCurrentWeather } from './hooks/useCurrentWeather';
 import { useHistoricalWeather } from './hooks/useHistoricalWeather';
 import FloatingFavoriteButton from './components/FloatingFavoriteButton/FloatingfavoriteButton';

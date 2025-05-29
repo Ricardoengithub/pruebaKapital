@@ -3,13 +3,14 @@ import { createRoot } from 'react-dom/client';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { CityProvider } from './context/CityContext';
-import { ThemeProviderCustom, useThemeMode } from './context/ThemeContext';
+import { ThemeProviderCustom } from './context/ThemeProviderCustom';
+import { useThemeMode } from './hooks/useThemeMode';
 import { lightTheme, darkTheme } from './theme';
 import App from './App';
 
 const queryClient = new QueryClient();
 
-const Root = () => {
+export const Root = () => {
   const { mode } = useThemeMode();
 
   return (

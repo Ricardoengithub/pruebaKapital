@@ -2,7 +2,7 @@ import React from 'react';
 import { IconButton, Tooltip, useTheme } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { useThemeMode } from '../../context/ThemeContext';
+import { useThemeMode } from '../../hooks/useThemeMode';
 
 const ThemeToggleButton: React.FC = () => {
   const { mode, toggleTheme } = useThemeMode();

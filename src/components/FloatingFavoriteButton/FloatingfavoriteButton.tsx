@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Fab, Tooltip } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { useCity } from '../../context/CityContext';
+import { useCity } from '../../hooks/useCity';
 import { isFavorite, toggleFavorite } from '../../util/favorites';
 
 const FloatingFavoriteButton: React.FC = () => {

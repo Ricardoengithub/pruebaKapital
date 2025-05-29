@@ -17,6 +17,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import type { MouseEvent } from 'react';
 
 type DataPoint = {
   date: string;
@@ -42,9 +43,9 @@ const WeatherChart: React.FC<Props> = ({ data }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleChange = (_: any, newMetric: typeof metric) => {
-    if (newMetric) setMetric(newMetric);
-  };
+	const handleChange = (_: MouseEvent<HTMLElement>, newMetric: typeof metric) => {
+		if (newMetric) setMetric(newMetric);
+	};
 
   const renderLines = () => {
     switch (metric) {

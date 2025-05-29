@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { City } from '../types/weather';
 
@@ -19,8 +19,4 @@ export const CityProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useCity = () => {
-  const context = useContext(CityContext);
-  if (!context) throw new Error('useCity must be used inside CityProvider');
-  return context;
-};
+export default CityContext;

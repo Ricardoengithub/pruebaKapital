@@ -1,8 +1,9 @@
 import React from 'react';
 import { Autocomplete, TextField, CircularProgress, Box } from '@mui/material';
 import { useCitySearch } from '../../hooks/useCitySearch';
+import { useCity } from '../../hooks/useCity';
 import type { City } from '../../types/weather';
-import { useCity } from '../../context/CityContext';
+import type { SyntheticEvent } from 'react';
 
 type Props = {
   inputValue: string;
@@ -20,7 +21,7 @@ const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
         inputValue.toLowerCase()
     ) || selectedCity || null;
 
-  const handleCityChange = (_: any, newValue: City | null) => {
+    const handleCityChange = (_event: SyntheticEvent<Element, Event>, newValue: City | null) => {
     setSelectedCity(newValue);
     if (newValue) {
       const newText = `${newValue.name}${newValue.state ? ', ' + newValue.state : ''}, ${newValue.country}`;

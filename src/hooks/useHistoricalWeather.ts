@@ -1,6 +1,26 @@
 import { useQuery } from '@tanstack/react-query';
 import { API_KEY } from '../config/api';
 
+type ForecastEntry = {
+  dt_txt: string;
+  main: {
+    temp: number;
+    temp_min: number;
+    temp_max: number;
+    humidity: number;
+    pressure: number;
+  };
+  wind: {
+    speed: number;
+  };
+  clouds: {
+    all: number;
+  };
+  rain?: {
+    '3h'?: number;
+  };
+};
+
 type ForecastDataPoint = {
   date: string;
   temp_avg: number;
@@ -15,6 +35,7 @@ type ForecastDataPoint = {
 
 const fetchForecast = async (lat: number, lon: number): Promise<ForecastDataPoint[]> => {
   if (!lat || !lon) throw new Error('Coordenadas no válidas');
+
   const res = await fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
   );
@@ -22,8 +43,8 @@ const fetchForecast = async (lat: number, lon: number): Promise<ForecastDataPoin
 
   const data = await res.json();
 
-  const grouped: Record<string, any[]> = {};
-  data.list.forEach((entry: any) => {
+  const grouped: Record<string, ForecastEntry[]> = {};
+  data.list.forEach((entry: ForecastEntry) => {
     const date = entry.dt_txt.split(' ')[0];
     if (!grouped[date]) grouped[date] = [];
     grouped[date].push(entry);
@@ -31,8 +52,8 @@ const fetchForecast = async (lat: number, lon: number): Promise<ForecastDataPoin
 
   return Object.keys(grouped).slice(0, 5).map(date => {
     const entries = grouped[date];
-
-    const avg = (arr: number[]) => arr.length ? +(arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1) : 0;
+    const avg = (arr: number[]) =>
+      arr.length ? +(arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1) : 0;
 
     return {
       date,

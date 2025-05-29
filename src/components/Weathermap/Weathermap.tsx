@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap } from 'react-leaflet';
-import { useCity } from '../../context/CityContext';
+import { useCity } from '../../hooks/useCity';
 import { API_KEY } from '../../config/api';
 
 type Props = {
@@ -60,7 +60,7 @@ const WeatherMap: React.FC<Props> = ({ setInputValue }) => {
         map.setView(newPosition, 10);
         setPopupText(`${selectedCity.name}${selectedCity.state ? ', ' + selectedCity.state : ''}, ${selectedCity.country}`);
       }
-    }, [selectedCity, map]);
+    }, [map]);
 
     return null;
   };
