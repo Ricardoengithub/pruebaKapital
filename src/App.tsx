@@ -9,6 +9,7 @@ import { useHistoricalWeather } from './hooks/useHistoricalWeather';
 import FloatingFavoriteButton from './components/FloatingFavoriteButton/FloatingfavoriteButton';
 import FavoritesList from './components/FavoritesList.tsx/FavoritesList';
 import ThemeToggle from './components/ThemeToggle/ThemeToggle';
+import WeatherMap from './components/Weathermap/Weathermap';
 
 function App() {
   const { selectedCity } = useCity();
@@ -35,6 +36,7 @@ function App() {
 
       {loadingHistory && <p>Cargando datos históricos...</p>}
       {forecastData && <WeatherChart data={forecastData} />}
+      <WeatherMap />
       <FloatingFavoriteButton />
       <ThemeToggle />
     </div>
