@@ -16,12 +16,12 @@ const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
 
   const selectedOption =
     cities.find(
-      (c) =>
+      (c: City) =>
         `${c.name}${c.state ? ', ' + c.state : ''}, ${c.country}`.toLowerCase() ===
         inputValue.toLowerCase()
     ) || selectedCity || null;
 
-    const handleCityChange = (_event: SyntheticEvent<Element, Event>, newValue: City | null) => {
+  const handleCityChange = (_event: SyntheticEvent<Element, Event>, newValue: City | null) => {
     setSelectedCity(newValue);
     if (newValue) {
       const newText = `${newValue.name}${newValue.state ? ', ' + newValue.state : ''}, ${newValue.country}`;
@@ -53,6 +53,7 @@ const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
         onInputChange={(_, newInputValue) => {
           setInputValue(newInputValue);
         }}
+        clearOnBlur={false}
         disableClearable={false}
         renderInput={(params) => (
           <TextField
