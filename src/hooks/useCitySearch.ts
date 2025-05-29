@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { API_KEY } from "../config/api";
 import type { City } from "../types/weather";
-
-const API_KEY = "a79e41da2214778aae9b9fb8fd546ad5";
 
 const fetchCities = async (query: string): Promise<City[]> => {
   if (query.trim() === "") return [];
