@@ -9,13 +9,13 @@ import FloatingFavoriteButton from './components/FloatingFavoriteButton/Floating
 import FavoritesList from './components/FavoritesList.tsx/FavoritesList';
 import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 import WeatherMap from './components/WeatherMap/WeatherMaps';
+import { API_KEY } from './config/api';
 
 function App() {
   const { selectedCity } = useCity();
   const [inputValue, setInputValue] = useState('');
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
-  const API_KEY = import.meta.env.VITE_API_KEY;
   const isApiKeyMissing = !API_KEY;
 
   const {
