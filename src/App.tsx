@@ -56,7 +56,7 @@ function App() {
       {isApiKeyMissing && (
         <div style={{ background: '#f8d7da', padding: 10, borderRadius: 4, marginBottom: 16 }}>
           <p style={{ margin: 0, color: '#721c24' }}>
-            🚫 Falta la clave de API. Por favor define <strong>VITE_API_KEY</strong> en tu archivo <code>.env</code>.
+            🚫 Falta la clave de API. Por favor define <strong>VITE_OPENWEATHER_API_KEY</strong> en tu archivo <code>.env</code>.
           </p>
         </div>
       )}
