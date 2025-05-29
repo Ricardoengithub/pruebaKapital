@@ -1,0 +1,26 @@
+import { createContext, useContext, useState } from 'react';
+import type { ReactNode } from 'react'; // ✅ Importación solo de tipo
+import type { City } from '../types/weather'; // ✅ Importación solo de tipo
+
+type CityContextType = {
+  selectedCity: City | null;
+  setSelectedCity: (city: City | null) => void;
+};
+
+const CityContext = createContext<CityContextType | undefined>(undefined);
+
+export const CityProvider = ({ children }: { children: ReactNode }) => {
+  const [selectedCity, setSelectedCity] = useState<City | null>(null);
+
+  return (
+    <CityContext.Provider value={{ selectedCity, setSelectedCity }}>
+      {children}
+    </CityContext.Provider>
+  );
+};
+
+export const useCity = () => {
+  const context = useContext(CityContext);
+  if (!context) throw new Error('useCity must be used inside CityProvider');
+  return context;
+};
