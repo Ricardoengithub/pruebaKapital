@@ -10,15 +10,16 @@ type Props = {
 };
 
 const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
+  console.log(inputValue, "==========")
   const { selectedCity, setSelectedCity } = useCity();
   const { data: cities = [], isLoading } = useCitySearch(inputValue);
 
-  // Encuentra la ciudad que coincida con inputValue para asignarla como value del Autocomplete
-  const selectedOption = cities.find(
+  const selectedOption =
+  cities.find(
     (c) =>
       `${c.name}${c.state ? ', ' + c.state : ''}, ${c.country}`.toLowerCase() ===
       inputValue.toLowerCase()
-  ) || null;
+  ) || selectedCity || null;
 
   const handleCityChange = (_: any, newValue: City | null) => {
     setSelectedCity(newValue);
@@ -43,9 +44,7 @@ const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
         inputValue={inputValue}
         onInputChange={(_, newInputValue) => {
           setInputValue(newInputValue);
-          if (newInputValue === '') {
-            setSelectedCity(null);
-          }
+          // No limpies de inmediato el selectedCity — espera a que el usuario lo confirme con onChange
         }}
         disableClearable={false}
         renderInput={(params) => (

@@ -36,7 +36,7 @@ function App() {
 
       {loadingHistory && <p>Cargando datos históricos...</p>}
       {forecastData && <WeatherChart data={forecastData} />}
-      <WeatherMap />
+      <WeatherMap setInputValue={setInputValue}/>
       <FloatingFavoriteButton />
       <ThemeToggle />
     </div>
