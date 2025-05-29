@@ -21,6 +21,8 @@ export type CurrentWeather = {
   weather: {
     description: string;
     icon: string;
+    main: string;
+    id: number;
   }[];
   wind: {
     speed: number;
@@ -33,5 +35,6 @@ export type CurrentWeather = {
   sys: {
     sunrise: number;
     sunset: number;
+    country: string;
   };
 };
