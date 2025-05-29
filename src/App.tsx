@@ -15,6 +15,9 @@ function App() {
   const [inputValue, setInputValue] = useState('');
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
+  const API_KEY = import.meta.env.VITE_API_KEY;
+  const isApiKeyMissing = !API_KEY;
+
   const {
     data: weather,
     isLoading: loadingWeather,
@@ -48,18 +51,32 @@ function App() {
           </p>
         </div>
       )}
-      <WeatherSearch inputValue={inputValue} setInputValue={setInputValue} />
-      {!selectedCity && <FavoritesList setInputValue={setInputValue} />}
-      {loadingWeather && <p>⏳ Cargando clima actual...</p>}
-      {errorWeather && (
-        <p style={{ color: 'crimson' }}>❌ No se pudo obtener el clima actual.</p>
+
+      {/* 🛑 API Key faltante */}
+      {isApiKeyMissing && (
+        <div style={{ background: '#f8d7da', padding: 10, borderRadius: 4, marginBottom: 16 }}>
+          <p style={{ margin: 0, color: '#721c24' }}>
+            🚫 Falta la clave de API. Por favor define <strong>VITE_API_KEY</strong> en tu archivo <code>.env</code>.
+          </p>
+        </div>
       )}
+
+      <WeatherSearch inputValue={inputValue} setInputValue={setInputValue} />
+
+      {!selectedCity && <FavoritesList setInputValue={setInputValue} />}
+
+      {loadingWeather && <p>⏳ Cargando clima actual...</p>}
+      {errorWeather && <p style={{ color: 'crimson' }}>❌ No se pudo obtener el clima actual.</p>}
       {weather && <WeatherCard weather={weather} />}
+
       {loadingHistory && <p>⏳ Cargando datos históricos...</p>}
       {errorHistory && (
         <p style={{ color: 'crimson' }}>❌ No se pudo obtener el pronóstico extendido.</p>
       )}
-      {Array.isArray(forecastData) && forecastData.length > 0 && <WeatherChart data={forecastData} />}
+      {Array.isArray(forecastData) && forecastData.length > 0 && (
+        <WeatherChart data={forecastData} />
+      )}
+
       <WeatherMap setInputValue={setInputValue} />
       <FloatingFavoriteButton />
       <ThemeToggle />
