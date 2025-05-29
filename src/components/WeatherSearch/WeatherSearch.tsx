@@ -10,7 +10,6 @@ type Props = {
 };
 
 const WeatherSearch: React.FC<Props> = ({ inputValue, setInputValue }) => {
-  console.log(inputValue, "==========")
   const { selectedCity, setSelectedCity } = useCity();
   const { data: cities = [], isLoading } = useCitySearch(inputValue);
 

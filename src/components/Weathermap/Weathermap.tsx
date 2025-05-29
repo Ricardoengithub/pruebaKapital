@@ -76,7 +76,7 @@ const WeatherMap: React.FC<Props> = ({ setInputValue }) => {
         />
         <ClickHandler />
         <MapController />
-        {position && (
+        {position && selectedCity && (
           <Marker position={position}>
             <Popup>{popupText || 'Ciudad seleccionada'}</Popup>
           </Marker>
