@@ -8,7 +8,7 @@ import { useHistoricalWeather } from './hooks/useHistoricalWeather';
 import FloatingFavoriteButton from './components/FloatingFavoriteButton/FloatingfavoriteButton';
 import FavoritesList from './components/FavoritesList.tsx/FavoritesList';
 import ThemeToggle from './components/ThemeToggle/ThemeToggle';
-import WeatherMap from './components/WeatherMap/Weathermap';
+import WeatherMap from './components/WeatherMap/WeatherMap';
 
 function App() {
   const { selectedCity } = useCity();
